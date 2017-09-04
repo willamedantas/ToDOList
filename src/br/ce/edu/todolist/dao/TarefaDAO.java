@@ -93,6 +93,45 @@ public class TarefaDAO {
 		}		
 	}
 	
+	public TarefaBean getTarefa(Integer id) throws PersistenceException{
+		
+		Connection conn = conexao.getInstance().getConnection();
+		
+		String sql = "SELECT * FROM TAREFA WHERE TR_ID = ?";
+		PreparedStatement statement = null;
+		
+		try {
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			
+			ResultSet result = statement.executeQuery();
+			
+			TarefaBean tarefa = new TarefaBean();
+			if(result.next()){
+				
+				tarefa.setId(result.getInt("TR_ID"));
+				tarefa.setTitulo(result.getString("TR_TITULO"));
+				tarefa.setDescricao(result.getString("TR_DESCRICAO"));
+				StatusTarefa status = ConverterTarefaStatus.converterEnum(result.getString("TR_STATUS"));
+				tarefa.setStatus(status);
+				tarefa.setUsuarioId(result.getInt("USR_ID"));
+			}
+			
+			return tarefa;
+			
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				statement.close();
+				conn.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+			
+		}		
+	}
+	
 	public int addTarefa(TarefaBean tarefa) throws PersistenceException{
 				
 		Connection conn = conexao.getInstance().getConnection();
@@ -134,8 +173,8 @@ public class TarefaDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE TAREFA SET ");
-		sql.append("TR_TITULO = ?, TR_DESCRICAO = ?, TR_STATUS = ? ");
-		sql.append("WHERE USR_ID = ?");
+		sql.append("TR_TITULO = ?, TR_DESCRICAO = ?, TR_STATUS = ?, USR_ID = ? ");
+		sql.append("WHERE TR_ID = ?");
 		
 		PreparedStatement statement = null;
 		
@@ -146,6 +185,7 @@ public class TarefaDAO {
 			statement.setString(2, tarefa.getDescricao());
 			statement.setString(3, tarefa.getStatus().getSigla());
 			statement.setInt(4, tarefa.getUsuarioId());
+			statement.setInt(5, tarefa.getId());
 			
 			int result = statement.executeUpdate();
 		

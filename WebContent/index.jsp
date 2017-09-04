@@ -25,6 +25,7 @@
 					<th>Titulo</th>
 					<th>Descricao</th>
 					<th>Status</th>
+					<th>Ação</th>
 				</thead>
 				<tbody class="tableTarefaTdTh">
 					<c:forEach var="t" items="${tarefas}">
@@ -33,6 +34,14 @@
 						   <td><c:out value="${t.titulo}" /></td>
 						   <td><c:out value="${t.descricao}" /></td>
 						   <td><c:out value="${t.status.descricao}" /></td>
+						   <td>
+						   		<a href="main?acao=editarTarefa&id_tarefa=${t.id}" title="Editar">
+									<img alt="Editar tarefa" src="img/edit.png"/>
+								</a>
+								<a href="main?acao=excluirTarefa&id_tarefa=${t.id}" title="Excluir">
+									<img alt="Editar tarefa" src="img/delete.png"/>
+								</a>
+						   </td>
 						</tr>
 					</c:forEach>	
 				</tbody>

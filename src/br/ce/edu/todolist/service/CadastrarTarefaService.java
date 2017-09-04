@@ -8,23 +8,22 @@ public class CadastrarTarefaService {
 			
 			Boolean isValido = true;
 			
-			if(tarefa.getTitulo() == null && tarefa.getTitulo().equals("")){
+			if(tarefa.getTitulo().equals("")){
 				isValido = false;
 			}
 			
-			if(tarefa.getDescricao() == null && tarefa.getDescricao().equals("")){
+			if(tarefa.getDescricao().equals("")){
 				isValido = false;
 			}
 			
-			if(tarefa.getStatus() == null && tarefa.getStatus().equals("")){
+			if(tarefa.getStatus().equals("N")){
 				isValido = false;
 			}
 			
-			if(tarefa.getUsuarioId() == null){
+			if(tarefa.getUsuarioId() == 0){
 				isValido = false;
 			}
 			
 			return isValido;
-		}
-
+	}
 }

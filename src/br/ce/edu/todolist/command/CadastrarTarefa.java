@@ -19,8 +19,10 @@ public class CadastrarTarefa implements Command {
 	public String execute(HttpServletRequest request) {
 		String proximaPage = "cadastrar-tarefa.jsp";
 		
-		TarefaBean tarefa = new TarefaBean();
 		UsuarioBean usuario = (UsuarioBean) request.getSession().getAttribute("usuario");
+		
+		TarefaBean tarefa = new TarefaBean();
+		tarefa.setId(Integer.parseInt(request.getParameter("id")));
 		tarefa.setTitulo(request.getParameter("titulo"));
 		tarefa.setDescricao(request.getParameter("descricao"));
 		StatusTarefa status = ConverterTarefaStatus.converterEnum(request.getParameter("status"));
@@ -33,16 +35,24 @@ public class CadastrarTarefa implements Command {
 		
 		if(service.verificaCampos(tarefa)){
 			try {
-				tarefaDAO.addTarefa(tarefa);
+				if(tarefa.getId() > 0){
+					tarefaDAO.editarTarefa(tarefa);
+					request.setAttribute("msgAviso", "Tarefa editada com sucesso.");
+
+				}else{
+					tarefaDAO.addTarefa(tarefa);					
+					request.setAttribute("msgAviso", "Tarefa cadastrada com sucesso.");
+				}
+				
 				List<TarefaBean> tarefas = tarefaDAO.listarTarefaPorUsuario(usuario.getId());
 				request.setAttribute("tarefas", tarefas);
-				request.setAttribute("msgAviso", "Tarefa cadastrada com sucesso.");
 			} catch (PersistenceException e) {
 				request.setAttribute("msgErro", "Erro ao gravar tarefa no banco de dados.");
 			}
 			proximaPage = "index.jsp";		
 		}else{
 			request.setAttribute("msgErro", "Dados invalidos, favor preencher todos os campos.");
+			
 		}
 		return proximaPage;
 	}

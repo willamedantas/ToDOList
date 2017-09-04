@@ -15,6 +15,7 @@ import br.ce.edu.todolist.command.Command;
 import br.ce.edu.todolist.command.IndexCommand;
 import br.ce.edu.todolist.command.LoginCommand;
 import br.ce.edu.todolist.command.PageCadastrarTarefa;
+import br.ce.edu.todolist.command.PageEditarTarefa;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
@@ -29,6 +30,7 @@ public class MainServlet extends HttpServlet {
 		comandos.put("cadastrarTarefa", new CadastrarTarefa());
 		comandos.put("page-cadastro", new PageCadastrarTarefa());
 		comandos.put("home", new IndexCommand());
+		comandos.put("editarTarefa", new PageEditarTarefa());
 	}
 
 	@Override

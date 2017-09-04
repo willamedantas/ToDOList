@@ -9,67 +9,89 @@
 <script type="text/javascript">
 	function cadastrar() {
 		var formCadastro = document.forms[0];
-		formCadastro.action='main?acao=cadastrarTarefa';
-		formCadastro.submit();
+			formCadastro.action='main?acao=cadastrarTarefa';
+			formCadastro.submit();			
+		
 	}
 </script>
 </head>
 <body>
 	<jsp:include page="cabecalho.jsp"/>
 		
-		<h1>Cadastros</h1>
-	
-		<div class="main">
-			<form action="main?cadastrarTarefa" method="post">
-				<div class="avisoDiv" style="display: ${msgAviso != null ? 'block' : 'none'}">
-					${msgAviso != null ? msgAviso : ''}
-				</div>
+	<h1>Cadastros</h1>
 
-				<fieldset>
-					<legend>Cadastrar Tarefa</legend>
-					 
-					<table cellpadding="5">
-						<tr>
-							<td>Titulo*:</td>
-							<td><input type="text" name="titulo" maxlength="45" value="${param.titulo}"/></td>
-						</tr>
-						<tr>
-							<td>Descrição*:</td>
-							<td>
-								<textarea rows="5" cols="35" maxlength="254" name="descricao">${param.miniBio}</textarea>
-							</td>
-						</tr>
-						
-						<tr>
-							<td>Status*:</td>
-							<td>
-								<select name="status" id="status">
-									<option value="0" disabled="disabled">Selecione...</option>
-									<c:forEach var="i" items="${statusTarefas}">
-										<option value="${i.sigla}">${i.descricao}</option>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>Usuário*:</td>
-							<td>
-								<select name="usuarioId" id="usuarioId" >
-									<option value="0" disabled="disabled">Selecione...</option>
-									<c:forEach var="i" items="${usuarios}">
-										<option value="${i.id}" label="${i.nome}"/>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</fieldset>
-				<span>* Campos obrigatórios</span>
-				<input type="reset" value="Limpar"/>
-				<input type="button" value="Cadastrar" onclick="cadastrar()"/>
-			</form>
-		</div>
-	
+	<div class="main">
+		<form action="main?cadastrarTarefa" method="post">
+			<div class="avisoDiv" style="display: ${msgAviso != null ? 'block' : 'none'}">
+				${msgAviso != null ? msgAviso : ''}
+			</div>
+
+			<fieldset>
+				<legend>Cadastrar Tarefa</legend>
+				 
+				<table cellpadding="5">
+				
+					<tr><input type="hidden" id="id" name="id" value="${tarefa != null ? tarefa.id : 0}" /> </tr>
+					<tr>
+						<td>Titulo*:</td>
+						<td><input type="text" name="titulo" maxlength="45" value="${tarefa != null ? tarefa.titulo : param.titulo}"/></td>
+					</tr>
+					<tr>
+						<td>Descrição*:</td>
+						<td>
+							<textarea rows="5" cols="35" maxlength="254" name="descricao">${tarefa != null ? tarefa.descricao : param.descricao}</textarea>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>Status*:</td>
+						<td>
+							<select name="status" id="status">
+								<option value="0" disabled="disabled">Selecione...</option>
+								<c:forEach var="i" items="${statusTarefas}">
+									<c:choose>
+										<c:when test="${tarefa != null}">
+											<option value="${i.sigla}" 
+												${(tarefa.status.sigla eq i.sigla) ? 'selected=true' : ''}>
+													${i.descricao}
+											</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${i.sigla}">${i.descricao}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Usuário*:</td>
+						<td>
+							<select name="usuarioId" id="usuarioId" >
+								<option value="0" disabled="disabled">Selecione...</option>
+								<c:forEach var="i" items="${usuarios}">
+									<c:choose>
+										<c:when test="${tarefa != null}">
+											<option value="${i.id}" 
+												${(tarefa.usuarioId eq i.id) ? 'selected=true' : ''}>
+													${i.nome}
+											</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${i.id}" label="${i.nome}"/>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			<span>* Campos obrigatórios</span>
+			<input type="reset" value="Limpar"/>
+			<input type="button" value="Salvar" onclick="cadastrar()"/>
+		</form>
+	</div>
 	<jsp:include page="rodape.jsp"/>
 
 </body>
