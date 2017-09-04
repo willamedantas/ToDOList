@@ -18,11 +18,11 @@
 			
 			<table>
 				<tr>
-					<td><label for="login">Login</label></td>
-					<td><input type="text" id="login" name="login"></td> 
+					<td><label for="login">Login: </label></td>
+					<td><input type="email" id="email" name="email"></td> 
 				</tr>
 				<tr>
-					<td><label for="senha">Senha</label></td>
+					<td><label for="senha">Senha: </label></td>
 					<td><input type="password" id="senha" name="senha"/></td> 
 				</tr>
 				<tfoot>

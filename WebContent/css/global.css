@@ -20,7 +20,7 @@ select {
 	width: 300px;
 }
 
-input[type=text],input[type=password] {
+input[type=text],input[type=password],input[type=email] {
 	width: 300px;
 }
 
@@ -50,6 +50,17 @@ fieldset#fieldset_login {
 .main {
 	min-height: 600px;
 	clear: both;
+}
+
+/*Estilo de tabela */
+#tableTarefa, #tableTarefa th, #tableTarefa td {
+   	margin: auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#tableTarefa th, #tableTarefa td {
+    padding: 5px;
+    text-align: left;
 }
 
 /* Estilo do cabeçalho e rodapé */
