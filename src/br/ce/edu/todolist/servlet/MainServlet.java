@@ -15,6 +15,7 @@ import br.ce.edu.todolist.command.Command;
 import br.ce.edu.todolist.command.RemoverTarefaCommand;
 import br.ce.edu.todolist.command.IndexCommand;
 import br.ce.edu.todolist.command.LoginCommand;
+import br.ce.edu.todolist.command.LogoutCommand;
 import br.ce.edu.todolist.command.PageCadastrarTarefa;
 import br.ce.edu.todolist.command.PageEditarTarefa;
 
@@ -33,6 +34,7 @@ public class MainServlet extends HttpServlet {
 		comandos.put("home", new IndexCommand());
 		comandos.put("editarTarefa", new PageEditarTarefa());
 		comandos.put("removerTarefa", new RemoverTarefaCommand());
+		comandos.put("sair", new LogoutCommand());
 	}
 
 	@Override
