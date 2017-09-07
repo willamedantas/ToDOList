@@ -38,7 +38,7 @@
 						   		<a href="main?acao=editarTarefa&id_tarefa=${t.id}" title="Editar">
 									<img alt="Editar tarefa" src="img/edit.png"/>
 								</a>
-								<a href="main?acao=excluirTarefa&id_tarefa=${t.id}" title="Excluir">
+								<a href="main?acao=removerTarefa&id_tarefa=${t.id}" title="Excluir">
 									<img alt="Editar tarefa" src="img/delete.png"/>
 								</a>
 						   </td>

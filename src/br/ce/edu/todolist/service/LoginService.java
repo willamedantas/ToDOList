@@ -16,7 +16,7 @@ public class LoginService{
 		
 		Boolean isValido = false;
 		
-		if(!usuario.getEmail().equals("") & !usuario.getSenha().equals("")){
+		if(usuario.getEmail() != null && !usuario.getEmail().equals("") & !usuario.getSenha().equals("")){
 			isValido = true;
 		}
 		

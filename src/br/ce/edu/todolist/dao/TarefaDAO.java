@@ -203,7 +203,7 @@ public class TarefaDAO {
 		}		
 	}
 	
-	public int deletarTarefa(Integer tarefaId) throws PersistenceException{
+	public int removerTarefa(Integer tarefaId) throws PersistenceException{
 		
 		Connection conn = conexao.getInstance().getConnection();
 		
