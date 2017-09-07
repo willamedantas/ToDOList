@@ -22,10 +22,8 @@
 
 	<div class="main">
 		<form action="main?cadastrarTarefa" method="post">
-			<div class="avisoDiv" style="display: ${msgAviso != null ? 'block' : 'none'}">
-				${msgAviso != null ? msgAviso : ''}
-			</div>
 
+			<jsp:include page="msg.jsp"/>
 			<fieldset>
 				<legend>Cadastrar Tarefa</legend>
 				 

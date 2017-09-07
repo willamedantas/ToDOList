@@ -31,7 +31,7 @@ public class PageEditarTarefa implements Command {
 			request.getSession().setAttribute("usuarios", usuarios);
 			
 		} catch (PersistenceException e) {
-			request.setAttribute("msgAviso", "Erro ao consultar dados no banco de dados.");
+			request.setAttribute("msgErro", "Erro ao consultar dados no banco de dados.");
 		}
 		return proximaPage;
 	}

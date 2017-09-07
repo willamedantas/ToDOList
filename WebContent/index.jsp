@@ -10,11 +10,8 @@
 <body>
 
 	<jsp:include page="cabecalho.jsp"/>
-	
-	<div class="avisoDiv" style="display: ${msgAviso != null ? 'block' : 'none'}">
-					${msgAviso != null ? msgAviso : ''}
-	</div>
-	
+		
+	<jsp:include page="msg.jsp"/>
 	<div class="main">
 		<h1>Olá, seja bem vindo ${usuario.nome}.</h1>
 		<fieldset>

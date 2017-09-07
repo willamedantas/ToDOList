@@ -28,7 +28,7 @@ public class LoginCommand implements Command {
 				request.getSession().setAttribute("usuario", retorno.get("usuario"));
 				request.setAttribute("tarefas", retorno.get("tarefas"));
 			}else{
-				request.setAttribute("msgErro", "Usuário inválido.");
+				request.setAttribute("msgAviso", "Usuário inválido.");
 			}
 		} catch (PersistenceException e) {
 			request.setAttribute("msgErro", "Erro ao consultar banco de dados.");

@@ -37,11 +37,11 @@ public class CadastrarTarefa implements Command {
 			try {
 				if(tarefa.getId() > 0){
 					tarefaDAO.editarTarefa(tarefa);
-					request.setAttribute("msgAviso", "Tarefa editada com sucesso.");
+					request.setAttribute("msgSucesso", "Tarefa editada com sucesso.");
 
 				}else{
 					tarefaDAO.addTarefa(tarefa);					
-					request.setAttribute("msgAviso", "Tarefa cadastrada com sucesso.");
+					request.setAttribute("msgSucesso", "Tarefa cadastrada com sucesso.");
 				}
 				
 				List<TarefaBean> tarefas = tarefaDAO.listarTarefaPorUsuario(usuario.getId());
@@ -51,7 +51,7 @@ public class CadastrarTarefa implements Command {
 			}
 			proximaPage = "index.jsp";		
 		}else{
-			request.setAttribute("msgErro", "Dados invalidos, favor preencher todos os campos.");
+			request.setAttribute("msgAviso", "Dados invalidos, favor preencher todos os campos.");
 			
 		}
 		return proximaPage;
