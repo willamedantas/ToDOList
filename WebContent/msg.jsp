@@ -1,9 +1,9 @@
-<div class="erroDiv" style="display: ${msgErro != null ? 'block' : 'none'}">
+<div class="alert alert-danger" role="alert" style="display: ${msgErro != null ? 'block' : 'none'}">
 	${msgErro != null ? msgErro : ''}
 </div>
-<div class="sucDiv" style="display: ${msgSucesso != null ? 'block' : 'none'}">
+<div class="alert alert-success" role="alert" style="display: ${msgSucesso != null ? 'block' : 'none'}">
 	${msgSucesso != null ? msgSucesso : ''}
 </div>
-<div class="avisoDiv" style="display: ${msgAviso != null ? 'block' : 'none'}">
+<div class="alert alert-info" role="alert" style="display: ${msgAviso != null ? 'block' : 'none'}">
 	${msgAviso != null ? msgAviso : ''}
 </div>

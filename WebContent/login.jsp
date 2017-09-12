@@ -4,29 +4,46 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Login - ToDoList</title>
-	<link rel="stylesheet" href="css/global.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
 </head>
 <body>
-	<form method="post" id="login_form" action="main?acao=login">
-			
-		<jsp:include page="msg.jsp"/>
-		<fieldset id="fieldset_login">
-			<legend>Login do Sistema</legend>
-			
-			<table>
-				<tr>
-					<td><label for="login">Login: </label></td>
-					<td><input type="email" id="email" name="email"></td> 
-				</tr>
-				<tr>
-					<td><label for="senha">Senha: </label></td>
-					<td><input type="password" id="senha" name="senha"/></td> 
-				</tr>
-				<tfoot>
-					<td colspan="2" align="right"><input type="submit" value="Logar"/></td>
-				</tfoot>
-			</table>
-		</fieldset>
-	</form>
+	
+	<div id="form-container">
+		<div class="panel" id="form-box">
+			<form method="post" id="login" action="main?acao=login">
+				<jsp:include page="msg.jsp"/>
+				<h1 class="text-center">ToDoList</h1>
+				<br>
+				
+				<div class="form-group">
+					<label class="sr-only" for="login">Login</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class="glyphicon glyphicon-user"></span>
+						</div>
+						<input type="text" name="email" class="form-control" placeholder="Digite seu email">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="sr-only" for="senha">Senha</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class="glyphicon glyphicon-lock"></span>
+						</div>
+						<input type="password" name="senha" class="form-control" placeholder="Digite sua senha.">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<input type="submit" value="Logar" class="btn btn-success form-control" />
+				</div>
+
+			</form>
+		</div>
+	</div>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 </body>
 </html>
