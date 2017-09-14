@@ -21,6 +21,7 @@ public class IndexCommand implements Command {
 		
 		try {
 			List<TarefaBean> tarefas = tarefaDAO.listarTarefaPorUsuario(usuario.getId());
+			request.setAttribute("aba", "home");
 			request.setAttribute("tarefas", tarefas);
 			
 		} catch (PersistenceException e) {

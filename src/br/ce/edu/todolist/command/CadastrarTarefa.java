@@ -46,6 +46,7 @@ public class CadastrarTarefa implements Command {
 				
 				List<TarefaBean> tarefas = tarefaDAO.listarTarefaPorUsuario(usuario.getId());
 				request.setAttribute("tarefas", tarefas);
+				request.setAttribute("aba", "home");
 			} catch (PersistenceException e) {
 				request.setAttribute("msgErro", "Erro ao gravar tarefa no banco de dados.");
 			}

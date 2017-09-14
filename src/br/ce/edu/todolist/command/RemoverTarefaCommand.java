@@ -17,6 +17,7 @@ public class RemoverTarefaCommand implements Command {
 		try {
 			tarefaDAO.removerTarefa(id);
 			request.setAttribute("msgSucesso", "Tarefa removida com sucesso.");
+			request.setAttribute("aba", "home");
 		} catch (PersistenceException e) {
 			request.setAttribute("msgErro", "Erro ao remover tarefa.");
 		}

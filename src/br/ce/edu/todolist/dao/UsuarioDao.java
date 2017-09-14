@@ -62,7 +62,7 @@ public class UsuarioDao {
 			ResultSet result = statement.executeQuery();
 			
 			List<UsuarioBean> usuarios = new ArrayList<>();
-			if(result.next()){
+			while(result.next()){
 				UsuarioBean usuario = new UsuarioBean();
 				usuario.setId(result.getInt("USR_ID"));
 				usuario.setNome(result.getString("USR_NOME"));

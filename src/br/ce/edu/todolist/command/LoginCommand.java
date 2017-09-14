@@ -27,6 +27,7 @@ public class LoginCommand implements Command {
 				Map<String, Object> retorno = service.retornoLogin(usuario.getEmail());
 				request.getSession().setAttribute("usuario", retorno.get("usuario"));
 				request.setAttribute("tarefas", retorno.get("tarefas"));
+				request.setAttribute("aba", "home");
 			}else{
 				request.setAttribute("msgErro", "Usuário inválido.");
 			}

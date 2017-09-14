@@ -26,7 +26,8 @@ public class PageEditarTarefa implements Command {
 			List<UsuarioBean> usuarios = usuarioDAO.listaUsuarios();
 			TarefaBean tarefa = tarefaDAO.getTarefa(tarefaId);
 			
-			request.setAttribute("tarefa", tarefa);
+			request.setAttribute("tarefa", tarefa); 
+			request.setAttribute("aba", "cadastro");
 			request.getSession().setAttribute("statusTarefas", statusTarefas);
 			request.getSession().setAttribute("usuarios", usuarios);
 			

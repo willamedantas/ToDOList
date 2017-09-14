@@ -22,6 +22,7 @@ public class PageCadastrarTarefa implements Command {
 			List<UsuarioBean> usuarios = usuarioDAO.listaUsuarios();
 			request.getSession().setAttribute("statusTarefas", statusTarefas);
 			request.getSession().setAttribute("usuarios", usuarios);
+			request.setAttribute("aba", "cadastro");
 			proximaPage = "cadastrar-tarefa.jsp";
 		} catch (PersistenceException e) {
 			request.setAttribute("msgErro", "Erro ao consultar dados no banco de dados.");
