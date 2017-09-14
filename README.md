@@ -9,7 +9,16 @@ Project: Dynamic Web project 3.0</br>
 
 <h2>Instalação</h2>
 
-1 - Rodar script para criação do schema e tabelas.</br>
-2 - Cadastrar usuário dentro do banco de dados.</br>
-3 - Importar projeto dentro do eclipse.</br>
+1 - Importando o projeto no eclipse.</br>
+  1.1. Abra seu Eclipse;</br>
+  1.2. Acesse File > Import...;</br>
+  1.3. Escolha a opção Projects from Git;</br>
+  1.4. Escolha a opção clone URI. Os campos referente a localização devem ser preenchidos automaticamente.</br>
+  1.5. Clique em Next;</br>
+  1.6. Em Local destination você pode alterar o local onde o projeto será clonado, definindo por exemplo seu workspace;</br>
+  1.7. Em Select a wizard to use importing projects escolha a opção Import as general project;</br>
+  1.8. Finish.</br>
+2 - O projeto esta configurando com o banco de dados em mysql, rode o <a href='TODOLIST.sql'>script que esta na raiz do projeto</a> para criação do schema, tabelas e usuário.</br>
+3 - Para logar na aplicação use o usuário 'admin@admin.com' com a senha 'admin'.
+
 
