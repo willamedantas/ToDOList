@@ -31,7 +31,7 @@ public class LoginCommand implements Command {
 			}else{
 				request.setAttribute("msgErro", "Usuário inválido.");
 			}
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | NullPointerException e) {
 			request.setAttribute("msgErro", "Erro ao consultar banco de dados.");
 			e.printStackTrace();
 		}

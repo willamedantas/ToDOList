@@ -4,23 +4,23 @@ import br.ce.edu.todolist.bean.TarefaBean;
 
 public class CadastrarTarefaService {
 	
-	public boolean verificaCampos(TarefaBean tarefa) {
+	public boolean validarCampos(TarefaBean tarefa) {
 			
 			Boolean isValido = true;
 			
-			if(tarefa.getTitulo().equals("")){
+			if(tarefa.getTitulo() == null || tarefa.getTitulo().equals("")){
 				isValido = false;
 			}
 			
-			if(tarefa.getDescricao().equals("")){
+			if(tarefa.getDescricao() == null || tarefa.getDescricao().equals("")){
 				isValido = false;
 			}
 			
-			if(tarefa.getStatus().equals("N")){
+			if(tarefa.getStatus() == null || tarefa.getStatus().equals("N")){
 				isValido = false;
 			}
 			
-			if(tarefa.getUsuarioId() == 0){
+			if(tarefa.getUsuarioId() == null || tarefa.getUsuarioId() < 0){
 				isValido = false;
 			}
 			

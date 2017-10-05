@@ -4,18 +4,23 @@ import br.ce.edu.todolist.bean.StatusTarefa;
 
 public class ConverterTarefaStatus {
 	
-	public static StatusTarefa converterEnum(String status){
-		
-		if(status.equals("A")){
-			return StatusTarefa.A_FAZER;
-		}else
-			if(status.equals("E")){
-				return StatusTarefa.EM_ANDAMENTO;
-		}else if(status.equals("C")){
-			return StatusTarefa.CONCLUIDO;
-		}
-		
-		return null;
-	}
+	public static StatusTarefa converterEnum(String status) {
 
+		if (status != null) {
+			switch (status) {
+			case "A":
+				return StatusTarefa.A_FAZER;
+			case "E":
+				return StatusTarefa.EM_ANDAMENTO;
+			case "C":
+				return StatusTarefa.CONCLUIDO;
+			default:
+				return null;
+			}
+		} else {
+			return null;
+		}
+
+	}
+	
 }

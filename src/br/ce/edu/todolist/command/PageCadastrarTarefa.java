@@ -11,12 +11,22 @@ import br.ce.edu.todolist.dao.UsuarioDao;
 import br.ce.edu.todolist.util.PersistenceException;
 
 public class PageCadastrarTarefa implements Command {
+	
+	private UsuarioDao usuarioDAO;
+	
+	public PageCadastrarTarefa() {
+		usuarioDAO = new UsuarioDao();
+	}
+	
+	public PageCadastrarTarefa(UsuarioDao usuarioDAO){
+		this.usuarioDAO = usuarioDAO;
+	}
 
 	@Override
 	public String execute(HttpServletRequest request) {
+
 		String proximaPage = "index.jsp";
-		
-		UsuarioDao usuarioDAO = new UsuarioDao();
+
 		try {
 			List<StatusTarefa> statusTarefas = Arrays.asList(StatusTarefa.values());
 			List<UsuarioBean> usuarios = usuarioDAO.listaUsuarios();
@@ -24,7 +34,7 @@ public class PageCadastrarTarefa implements Command {
 			request.getSession().setAttribute("usuarios", usuarios);
 			request.setAttribute("aba", "cadastro");
 			proximaPage = "cadastrar-tarefa.jsp";
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | NullPointerException e) {
 			request.setAttribute("msgErro", "Erro ao consultar dados no banco de dados.");
 		}
 		return proximaPage;

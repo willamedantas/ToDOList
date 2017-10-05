@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class conexao {
+public class Conexao {
 	
 	public boolean isConnected;
-    private static conexao conexaoUtil;
+    private static Conexao conexaoUtil;
 
-    public static conexao getInstance() {
+    public static Conexao getInstance() {
         if (conexaoUtil == null) {
-            conexaoUtil = new conexao();
+            conexaoUtil = new Conexao();
         }
         return conexaoUtil;
     }
@@ -30,18 +30,5 @@ public class conexao {
         
     	isConnected = true;
         return conn;
-    }
-
-    public static void main(String[] args) {
-
-        Connection conn = null;
-
-        try {
-            conn = conexao.getInstance().getConnection();
-            System.out.println(conn);
-
-        } catch (Exception e) {
-            System.out.println("Problemas ao tentar conectar com o banco de dados: " + e);
-        }
     }
 }

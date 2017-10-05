@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.ce.edu.todolist.command.CadastrarTarefa;
+import br.ce.edu.todolist.command.CadastrarTarefaCommand;
 import br.ce.edu.todolist.command.Command;
 import br.ce.edu.todolist.command.RemoverTarefaCommand;
 import br.ce.edu.todolist.command.IndexCommand;
@@ -29,7 +29,7 @@ public class MainServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		comandos.put("login", new LoginCommand());
-		comandos.put("cadastrarTarefa", new CadastrarTarefa());
+		comandos.put("cadastrarTarefa", new CadastrarTarefaCommand());
 		comandos.put("page-cadastro", new PageCadastrarTarefa());
 		comandos.put("home", new IndexCommand());
 		comandos.put("editarTarefa", new PageEditarTarefa());

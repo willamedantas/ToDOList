@@ -10,6 +10,16 @@ import br.ce.edu.todolist.dao.TarefaDAO;
 import br.ce.edu.todolist.util.PersistenceException;
 
 public class IndexCommand implements Command {
+	
+	private TarefaDAO tarefaDAO;
+	
+	public IndexCommand() {
+		tarefaDAO = new TarefaDAO();
+	}
+	
+	public IndexCommand(TarefaDAO tarefaDAO){
+		this.tarefaDAO = tarefaDAO;
+	}
 
 	@Override
 	public String execute(HttpServletRequest request) {
@@ -17,14 +27,13 @@ public class IndexCommand implements Command {
 		String page = "index.jsp";
 		
 		UsuarioBean usuario = (UsuarioBean) request.getSession().getAttribute("usuario");
-		TarefaDAO tarefaDAO = new TarefaDAO();
 		
 		try {
 			List<TarefaBean> tarefas = tarefaDAO.listarTarefaPorUsuario(usuario.getId());
 			request.setAttribute("aba", "home");
 			request.setAttribute("tarefas", tarefas);
 			
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | NullPointerException e) {
 			request.setAttribute("msgErro", "Erro ao consultar tarefas no banco de dados.");
 		}
 		

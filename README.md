@@ -18,7 +18,6 @@ Project: Dynamic Web project 3.0</br>
   1.6. Em Local destination você pode alterar o local onde o projeto será clonado, definindo por exemplo seu workspace;</br>
   1.7. Em Select a wizard to use importing projects escolha a opção Import as general project;</br>
   1.8. Finish.</br>
-2 - O projeto esta configurando com o banco de dados em mysql, rode o <a href='TODOLIST.sql'>script que esta na raiz do projeto</a> para criação do schema, tabelas e usuário.</br>
-3 - Para logar na aplicação use o usuário 'admin@admin.com' com a senha 'admin'.
-
-
+2 - O projeto esta configurando com o banco de dados em mysql, rode o [script que esta na raiz do projeto para criação do schema](TODOLIST.sql) , tabelas e usuário.
+3 - Para logar na aplicação use o usuário 'dmin@admin.com' com a senha 'admin'.
+ 

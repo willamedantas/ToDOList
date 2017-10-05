@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,13 @@ import br.ce.edu.todolist.bean.StatusTarefa;
 import br.ce.edu.todolist.bean.TarefaBean;
 import br.ce.edu.todolist.util.ConverterTarefaStatus;
 import br.ce.edu.todolist.util.PersistenceException;
-import br.ce.edu.todolist.util.conexao;
+import br.ce.edu.todolist.util.Conexao;
 
 public class TarefaDAO {
 	
 	public List<TarefaBean> listarTarefas() throws PersistenceException{
 		
-		Connection conn = conexao.getInstance().getConnection();
+		Connection conn = Conexao.getInstance().getConnection();
 		
 		String sql = "SELECT * FROM TAREFA";
 		PreparedStatement statement = null;
@@ -38,24 +39,19 @@ public class TarefaDAO {
 				listaTarefas.add(tarefa);
 			}
 			
+			statement.close();
+			conn.close();
+			
 			return listaTarefas;
 			
 		} catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
-		} finally {
-			try {
-				statement.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new PersistenceException(e.getMessage());
-			}
-			
-		}	
+		} 
 	}
 	
 	public List<TarefaBean> listarTarefaPorUsuario(Integer id) throws PersistenceException{
 		
-		Connection conn = conexao.getInstance().getConnection();
+		Connection conn = Conexao.getInstance().getConnection();
 		
 		String sql = "SELECT * FROM TAREFA WHERE USR_ID = ?";
 		PreparedStatement statement = null;
@@ -78,24 +74,19 @@ public class TarefaDAO {
 				listaTarefas.add(tarefa);
 			}
 			
+			statement.close();
+			conn.close();
+			
 			return listaTarefas;
 			
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			throw new PersistenceException(e.getMessage());
-		} finally {
-			try {
-				statement.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new PersistenceException(e.getMessage());
-			}
-			
-		}		
+		} 	
 	}
 	
 	public TarefaBean getTarefa(Integer id) throws PersistenceException{
 		
-		Connection conn = conexao.getInstance().getConnection();
+		Connection conn = Conexao.getInstance().getConnection();
 		
 		String sql = "SELECT * FROM TAREFA WHERE TR_ID = ?";
 		PreparedStatement statement = null;
@@ -106,9 +97,9 @@ public class TarefaDAO {
 			
 			ResultSet result = statement.executeQuery();
 			
-			TarefaBean tarefa = new TarefaBean();
+			TarefaBean tarefa = null;
 			if(result.next()){
-				
+				tarefa = new TarefaBean();
 				tarefa.setId(result.getInt("TR_ID"));
 				tarefa.setTitulo(result.getString("TR_TITULO"));
 				tarefa.setDescricao(result.getString("TR_DESCRICAO"));
@@ -117,24 +108,19 @@ public class TarefaDAO {
 				tarefa.setUsuarioId(result.getInt("USR_ID"));
 			}
 			
+			statement.close();
+			conn.close();
+			
 			return tarefa;
 			
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			throw new PersistenceException(e.getMessage());
-		} finally {
-			try {
-				statement.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new PersistenceException(e.getMessage());
-			}
-			
-		}		
+		}	
 	}
 	
 	public int addTarefa(TarefaBean tarefa) throws PersistenceException{
 				
-		Connection conn = conexao.getInstance().getConnection();
+		Connection conn = Conexao.getInstance().getConnection();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO TAREFA ");
@@ -145,31 +131,32 @@ public class TarefaDAO {
 		
 		
 		try {
-			statement = conn.prepareStatement(sql.toString());
+			statement = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, tarefa.getTitulo());
 			statement.setString(2, tarefa.getDescricao());
 			statement.setString(3, tarefa.getStatus().getSigla());
 			statement.setInt(4, tarefa.getUsuarioId());
 			
-			int result = statement.executeUpdate();
-		
-			return result;
-		} catch (SQLException e) {
-			throw new PersistenceException(e.getMessage());
-		} finally {
-			try {
-				statement.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new PersistenceException(e.getMessage());
-			}
+			statement.executeUpdate();
+			ResultSet result = statement.getGeneratedKeys();
 			
-		}		
+			int id = 0;
+			if(result.next()){
+				id = result.getInt(1);
+			}
+		
+			statement.close();
+			conn.close();
+			
+			return id;
+		} catch (SQLException | NullPointerException e) {
+			throw new PersistenceException(e.getMessage());
+		}	
 	}
 	
 	public int editarTarefa(TarefaBean tarefa) throws PersistenceException{
 		
-		Connection conn = conexao.getInstance().getConnection();
+		Connection conn = Conexao.getInstance().getConnection();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE TAREFA SET ");
@@ -189,23 +176,18 @@ public class TarefaDAO {
 			
 			int result = statement.executeUpdate();
 		
-			return result;
-		} catch (SQLException e) {
-			throw new PersistenceException(e.getMessage());
-		} finally {
-			try {
-				statement.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new PersistenceException(e.getMessage());
-			}
+			statement.close();
+			conn.close();
 			
-		}		
+			return result;
+		} catch (SQLException | NullPointerException e ) {
+			throw new PersistenceException(e.getMessage());
+		}
 	}
 	
 	public int removerTarefa(Integer tarefaId) throws PersistenceException{
 		
-		Connection conn = conexao.getInstance().getConnection();
+		Connection conn = Conexao.getInstance().getConnection();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM TAREFA WHERE TR_ID = ?");
@@ -219,17 +201,12 @@ public class TarefaDAO {
 			
 			int result = statement.executeUpdate();
 		
-			return result;
-		} catch (SQLException e) {
-			throw new PersistenceException(e.getMessage());
-		} finally {
-			try {
-				statement.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new PersistenceException(e.getMessage());
-			}
+			statement.close();
+			conn.close();
 			
-		}		
+			return result;
+		} catch (SQLException | NullPointerException e) {
+			throw new PersistenceException(e.getMessage());
+		}			
 	}
 }
