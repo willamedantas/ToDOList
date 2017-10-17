@@ -10,31 +10,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.ce.edu.todolist.command.CadastrarTarefaCommand;
 import br.ce.edu.todolist.command.Command;
-import br.ce.edu.todolist.command.RemoverTarefaCommand;
-import br.ce.edu.todolist.command.IndexCommand;
-import br.ce.edu.todolist.command.LoginCommand;
-import br.ce.edu.todolist.command.LogoutCommand;
-import br.ce.edu.todolist.command.PageCadastrarTarefa;
-import br.ce.edu.todolist.command.PageEditarTarefa;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -8703808823935681056L;
 	
-	private Map<String, Command> comandos = new HashMap<String, Command>(); 
+	private Map<String, String> comandos = new HashMap<String, String>(); 
 	
 	@Override
 	public void init() throws ServletException {
-		comandos.put("login", new LoginCommand());
-		comandos.put("cadastrarTarefa", new CadastrarTarefaCommand());
-		comandos.put("page-cadastro", new PageCadastrarTarefa());
-		comandos.put("home", new IndexCommand());
-		comandos.put("editarTarefa", new PageEditarTarefa());
-		comandos.put("removerTarefa", new RemoverTarefaCommand());
-		comandos.put("sair", new LogoutCommand());
+		comandos.put("login", "br.ce.edu.todolist.command.LoginCommand");
+		comandos.put("cadastrarTarefa", "br.ce.edu.todolist.command.CadastrarTarefaCommand");
+		comandos.put("page-cadastro", "br.ce.edu.todolist.command.PageCadastrarTarefa");
+		comandos.put("home", "br.ce.edu.todolist.command.IndexCommand");
+		comandos.put("editarTarefa", "br.ce.edu.todolist.command.PageEditarTarefa");
+		comandos.put("removerTarefa", "br.ce.edu.todolist.command.RemoverTarefaCommand");
+		comandos.put("sair", "br.ce.edu.todolist.command.LogoutCommand");
 	}
 
 	@Override
@@ -42,18 +35,24 @@ public class MainServlet extends HttpServlet {
 		
 		String acao = request.getParameter("acao");
 		String proximaPage = null;
+		Command comando = null;
 		
-		Command comando = verificarComando(acao);
-		proximaPage = comando.execute(request);
-		request.getRequestDispatcher(proximaPage).forward(request, response);
+		try {
+			comando = verificarComando(acao);
+			proximaPage = comando.execute(request);
+			request.getRequestDispatcher(proximaPage).forward(request, response);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
-	private Command verificarComando(String acao) {
+	private Command verificarComando(String acao) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		Command comando = null;
 		for(String key : comandos.keySet()){
 			if(key.equals(acao)){
-				comando = comandos.get(key);
+				Class classe = Class.forName(comandos.get(key));
+				comando = (Command) classe.newInstance();
 			}
 		}
 		return comando;

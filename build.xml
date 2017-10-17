@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="project" default="criar-war">
+    <description>
+            description
+    </description>
+
+    <!-- ================================= 
+          target: default              
+         ================================= 
+         <copy todir="src/classes">
+			<fileset dir="src" excludes="**/*.java"></fileset>
+		</copy>
+         
+         -->
+	
+	<target name="compilar">
+		<delete dir="bin" />
+		<mkdir dir="bin" />
+		<mkdir dir="rel"/>
+		<javac destdir="bin" srcdir="src">
+			<classpath>
+				<fileset dir="WebContent/WEB-INF/lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="rodar-teste" depends="compilar">
+		<junit haltonfailure="yes" showoutput="false" printsummary="on">
+			<batchtest todir="rel/relatorio-test">
+				<formatter type="xml"/>
+				<fileset dir="test">
+					<include name="**/*Test.java"/>
+				</fileset>
+			</batchtest>
+			<classpath>
+				<pathelement location="bin/classes"/>
+				<pathelement location="bin/classes-test"/>
+				<fileset dir="WebContent/WEB-INF/lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</junit>
+	</target>
+	
+	<target name="criar-war" depends="rodar-teste">
+		<war destfile="rel/ToDoList.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent" />
+			<fileset dir="target/classes"/>
+		</war>
+	</target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="depends">
+    </target>
+
+</project>
